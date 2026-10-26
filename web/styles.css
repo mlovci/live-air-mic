@@ -1,0 +1,669 @@
+:root {
+  --bg-main: #0b0e14;
+  --bg-panel: #131822;
+  --bg-panel-hover: #1a2130;
+  --bg-inset: #080a0e;
+  --border-subtle: #242b38;
+  --border-focus: #3b82f6;
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-dim: #64748b;
+
+  --accent-blue: #0284c7;
+  --accent-cyan: #38bdf8;
+  --accent-green: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-orange: #fb923c;
+  --accent-purple: #a78bfa;
+  --accent-teal: #2dd4bf;
+  --accent-pink: #f43f5e;
+  --accent-yellow: #facc15;
+  --accent-red: #ef4444;
+  --accent-red-glow: rgba(239, 68, 68, 0.45);
+
+  --led-green: #10b981;
+  --led-yellow: #facc15;
+  --led-orange: #fb923c;
+  --led-red: #f43f5e;
+  --led-off: #1e2430;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: hidden;
+  padding: env(safe-area-inset-top, 10px) env(safe-area-inset-right, 10px) env(safe-area-inset-bottom, 10px) env(safe-area-inset-left, 10px);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.studio-container {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  min-height: calc(100dvh - 20px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Modern SPA View Switching (faster-spa-view-transitions) */
+.spa-view {
+  width: 100%;
+  flex: 1;
+  min-height: calc(100dvh - 20px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  outline: none;
+}
+
+.bottom-control-deck {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.spa-view.inactive {
+  content-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+@supports not (content-visibility: hidden) {
+  .spa-view.inactive {
+    display: none;
+  }
+}
+
+/* 1. Compact Header & Traffic-Light Latency Indicator */
+.header-card {
+  background: linear-gradient(180deg, #171c26 0%, #11151d 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--accent-red) 0%, #b91c1c 100%);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-icon svg {
+  width: 14px;
+  height: 14px;
+  fill: #ffffff;
+}
+
+.brand h1 {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+.latency-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  border: 1px solid transparent;
+}
+
+.latency-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.latency-pill.green {
+  background: rgba(16, 185, 129, 0.16);
+  color: var(--accent-green);
+  border-color: rgba(16, 185, 129, 0.45);
+}
+
+.latency-pill.green .latency-dot {
+  background: var(--accent-green);
+  box-shadow: 0 0 8px var(--accent-green);
+}
+
+.latency-pill.yellow {
+  background: rgba(250, 204, 21, 0.16);
+  color: var(--accent-yellow);
+  border-color: rgba(250, 204, 21, 0.45);
+}
+
+.latency-pill.yellow .latency-dot {
+  background: var(--accent-yellow);
+  box-shadow: 0 0 8px var(--accent-yellow);
+}
+
+.latency-pill.red {
+  background: rgba(239, 68, 68, 0.18);
+  color: var(--accent-red);
+  border-color: rgba(239, 68, 68, 0.45);
+}
+
+.latency-pill.red .latency-dot {
+  background: var(--accent-red);
+  box-shadow: 0 0 8px var(--accent-red);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tempo-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+}
+
+.btn-nav-page,
+.btn-nav-back {
+  background: #1e293b;
+  color: var(--accent-cyan);
+  border: 1px solid #334155;
+  border-radius: var(--radius-sm);
+  padding: 5px 10px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-nav-page:active,
+.btn-nav-back:active {
+  transform: scale(0.97);
+}
+
+/* 2. Compact Horizontal Sound Meter Bar */
+.meter-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meter-bar-horizontal {
+  flex: 1;
+  height: 16px;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 2px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+
+.meter-segment {
+  flex: 1;
+  height: 100%;
+  background: var(--led-off);
+  border-radius: 1.5px;
+}
+
+.meter-segment.lit.green {
+  background: var(--led-green);
+}
+
+.meter-segment.lit.yellow {
+  background: var(--led-yellow);
+}
+
+.meter-segment.lit.orange {
+  background: var(--led-orange);
+}
+
+.meter-segment.lit.red {
+  background: var(--led-red);
+}
+
+.meter-readouts-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.meter-readouts-inline strong {
+  color: #fff;
+}
+
+.clip-indicator {
+  font-size: 0.64rem;
+  font-weight: 800;
+  color: var(--text-dim);
+  background: var(--bg-inset);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.clip-indicator.active {
+  background: var(--accent-red);
+  color: #fff;
+}
+
+/* 3. Real-Time Feedback Detection & AFC Algorithm Monitor */
+.afc-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 7px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.afc-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.afc-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.afc-badge.clear {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-green);
+}
+
+.afc-badge.tracking {
+  background: rgba(250, 204, 21, 0.18);
+  color: var(--accent-yellow);
+}
+
+.afc-badge.locked {
+  background: rgba(244, 63, 94, 0.22);
+  color: var(--accent-pink);
+}
+
+.afc-badge.off {
+  background: rgba(100, 116, 139, 0.15);
+  color: var(--text-dim);
+}
+
+.afc-metrics {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+}
+
+.afc-notch-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.notch-pill {
+  background: var(--bg-inset);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 3px 4px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-dim);
+}
+
+.notch-pill.active {
+  background: rgba(244, 63, 94, 0.18);
+  border-color: var(--accent-pink);
+  color: #fecdd3;
+}
+
+/* 4. Reggae Dub Momentary Performance Pads */
+.dub-pads-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.dub-pad {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 8px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.12s ease;
+}
+
+.dub-pad:active,
+.dub-pad.held {
+  transform: scale(0.97);
+}
+
+.pad-purple {
+  background: #2e1065;
+  border-color: #6d28d9;
+}
+.pad-purple.held {
+  background: #7c3aed;
+}
+
+.pad-teal {
+  background: #0f3f3c;
+  border-color: #0d9488;
+}
+.pad-teal.held {
+  background: #0d9488;
+}
+
+.pad-amber {
+  background: #422006;
+  border-color: #d97706;
+}
+.pad-amber.held {
+  background: #d97706;
+}
+
+.pad-green {
+  background: #064e3b;
+  border-color: #10b981;
+}
+.pad-green.dry-active {
+  background: #991b1b;
+  border-color: #ef4444;
+}
+
+/* 5. Dub Echo Rhythm Division Selector */
+.echo-rate-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.rate-btn {
+  background: #172030;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 6px 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.rate-btn.active {
+  background: var(--accent-blue);
+  border-color: var(--accent-cyan);
+  color: #fff;
+}
+
+/* 6. Compact Inline Reggae Macro Sliders */
+.settings-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.compact-slider-row {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.slider-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.slider-lbl.cyan { color: var(--accent-cyan); }
+.slider-lbl.purple { color: var(--accent-purple); }
+.slider-lbl.yellow { color: var(--accent-yellow); }
+.slider-lbl.teal { color: var(--accent-teal); }
+.slider-lbl.orange { color: var(--accent-orange); }
+.slider-lbl.green { color: var(--accent-green); }
+.slider-lbl.blue { color: #60a5fa; }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--bg-inset);
+  border-radius: 3px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  cursor: pointer;
+}
+
+/* 7. Compact 6-Unit FX Toggle Strip */
+.fx-toggles-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+}
+
+.fx-tog {
+  background: #1a202c;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 7px 2px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.fx-tog.active-green { background: #065f46; border-color: #10b981; color: #fff; }
+.fx-tog.active-purple { background: #4c1d95; border-color: #a78bfa; color: #fff; }
+.fx-tog.active-blue { background: #075985; border-color: #38bdf8; color: #fff; }
+.fx-tog.active-teal { background: #115e59; border-color: #2dd4bf; color: #fff; }
+.fx-tog.active-orange { background: #7c2d12; border-color: #fb923c; color: #fff; }
+.fx-tog.active-pink { background: #881337; border-color: #f43f5e; color: #fff; }
+
+/* 8. Bottom Action Row */
+.bottom-actions-row {
+  display: grid;
+  grid-template-columns: 1.1fr 0.75fr 1fr 0.75fr;
+  gap: 6px;
+}
+
+.btn {
+  border: 1px solid var(--border-subtle);
+  outline: none;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  border-radius: var(--radius-sm);
+  padding: 11px 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #fff;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-stream {
+  background: #1e293b;
+}
+
+.btn-stream.active {
+  background: #0284c7;
+  border-color: #38bdf8;
+}
+
+.btn-mute {
+  background: #065f46;
+  border-color: #10b981;
+}
+
+.btn-mute.muted {
+  background: #b91c1c;
+  border-color: #ef4444;
+}
+
+.btn-record {
+  background: #262c38;
+}
+
+.record-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-red);
+}
+
+.btn-record.recording {
+  background: #dc2626;
+  border-color: #fca5a5;
+}
+
+/* PAGE 2: Separate Ableton Session Mixer Page */
+.mixer-page-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.mixer-tracks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mixer-track-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  display: grid;
+  grid-template-columns: 110px 1fr auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.mixer-track-name {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mixer-track-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.mix-btn {
+  background: #1e293b;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  border-radius: 4px;
+  padding: 4px 7px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.mix-btn.mute-on {
+  background: #d97706;
+  color: #fff;
+}
+
+.mix-btn.solo-on {
+  background: #0284c7;
+  color: #fff;
+}
+
+.mix-btn.arm-on {
+  background: #dc2626;
+  color: #fff;
+}

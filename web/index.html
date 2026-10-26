@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0e14">
+  <meta name="description" content="Ultra-Low-Latency Wireless Reggae & Dub Microphone for Ableton Live & Max for Live">
+  <title>LiveAirMic — Reggae Studio Transmitter</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="studio-container">
+
+    <!-- PAGE 1: MAIN REGGAE FX & FEEDBACK MONITOR VIEW -->
+    <main id="view-fx" class="spa-view" tabindex="-1" aria-hidden="false">
+
+      <!-- 1. Compact Header & Traffic-Light Latency Indicator -->
+      <header class="header-card">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+              <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+            </svg>
+          </div>
+          <h1>LIVE AIR MIC</h1>
+          <div id="status-badge" class="latency-pill red" title="Network & Buffer Latency Status">
+            <span id="status-dot" class="latency-dot"></span>
+            <span id="status-text">RED</span>
+            <span id="tel-ping" class="sr-only">-- ms</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span id="transport-tempo" class="tempo-tag">88 BPM</span>
+          <span id="transport-beat" class="sr-only">1.1</span>
+          <span id="transport-badge" class="sr-only">STOPPED</span>
+        </div>
+      </header>
+
+      <!-- 2. Compact Horizontal Sound Meter Bar -->
+      <section class="meter-card">
+        <div id="meter-container" class="meter-bar-horizontal">
+          <!-- 24 Horizontal LED Segments populated by app.js -->
+        </div>
+        <div class="meter-readouts-inline">
+          <span>PK <strong id="readout-peak">-∞</strong></span>
+          <span>RMS <strong id="readout-rms">-∞</strong></span>
+          <span id="clip-led" class="clip-indicator">CLIP</span>
+        </div>
+      </section>
+
+      <!-- 3. Real-Time Feedback Detection & AFC Algorithm Monitor -->
+      <section class="afc-card" aria-label="Feedback Detection Algorithm Monitor">
+        <div class="afc-top-row">
+          <span id="afc-state-badge" class="afc-badge clear">AFC: CLEAR</span>
+          <span id="afc-metrics" class="afc-metrics">PAPR: 1.0/42 | PK: -- Hz | ISO: 0dB</span>
+        </div>
+        <div class="afc-notch-row">
+          <span id="afc-notch-0" class="notch-pill">N1: IDLE</span>
+          <span id="afc-notch-1" class="notch-pill">N2: IDLE</span>
+          <span id="afc-notch-2" class="notch-pill">N3: IDLE</span>
+          <span id="afc-notch-3" class="notch-pill">N4: IDLE</span>
+        </div>
+      </section>
+
+      <!-- BOTTOM-ANCHORED THUMB CONTROL DECK -->
+      <div class="bottom-control-deck">
+
+      <!-- 4. Reggae Dub Momentary Performance Pads (2x2 Grid) -->
+      <section class="dub-pads-grid">
+        <button id="pad-dub-throw" class="dub-pad pad-purple" type="button">HOLD: DUB THROW</button>
+        <button id="pad-spring-splash" class="dub-pad pad-teal" type="button">HOLD: SPRING SPLASH</button>
+        <button id="pad-dub-horn" class="dub-pad pad-amber" type="button">HOLD: DUB HORN EQ</button>
+        <button id="pad-dry-cut" class="dub-pad pad-green" type="button">FX ACTIVE (TAP DRY)</button>
+      </section>
+
+      <!-- 5. Dub Echo Rhythm Division Selector -->
+      <section class="echo-rate-row">
+        <button class="rate-btn active" data-rate="0" type="button">1/8D SKANK</button>
+        <button class="rate-btn" data-rate="1" type="button">1/4 ROOTS</button>
+        <button class="rate-btn" data-rate="2" type="button">1/8T STEPPAS</button>
+      </section>
+
+      <!-- 6. Compact Inline Reggae Macro Sliders (Mapped 1:1 to Ableton Rack Macros) -->
+      <section class="settings-card">
+        <div class="compact-slider-row">
+          <label for="slider-echo-mix" class="slider-lbl cyan">DUB ECHO: <span id="val-echo-mix">35%</span></label>
+          <input type="range" id="slider-echo-mix" min="0" max="100" step="1" value="35">
+        </div>
+        <div class="compact-slider-row">
+          <label for="slider-echo-fb" class="slider-lbl purple">ECHO FDBK: <span id="val-echo-fb">35%</span></label>
+          <input type="range" id="slider-echo-fb" min="0" max="100" step="1" value="35">
+        </div>
+        <div class="compact-slider-row">
+          <label for="slider-dub-filter" class="slider-lbl yellow">DUB FILTER: <span id="val-dub-filter">0%</span></label>
+          <input type="range" id="slider-dub-filter" min="0" max="100" step="1" value="0">
+        </div>
+        <div class="compact-slider-row">
+          <label for="slider-spring-wet" class="slider-lbl teal">SPRING REV: <span id="val-spring-wet">30%</span></label>
+          <input type="range" id="slider-spring-wet" min="0" max="100" step="1" value="30">
+        </div>
+        <div class="compact-slider-row">
+          <label for="slider-tube-warm" class="slider-lbl orange">TUBE &amp; TONE: <span id="val-tube-warm">45%</span></label>
+          <input type="range" id="slider-tube-warm" min="0" max="100" step="1" value="45">
+        </div>
+        <div class="compact-slider-row">
+          <label for="slider-gate-thresh" class="slider-lbl green">NOISE GATE: <span id="val-gate-thresh">10%</span></label>
+          <input type="range" id="slider-gate-thresh" min="0" max="100" step="1" value="10">
+        </div>
+        <div class="compact-slider-row">
+          <label for="slider-gain" class="slider-lbl blue">MIC GAIN: <span id="gain-label">+0.0 dB</span></label>
+          <input type="range" id="slider-gain" min="-12" max="24" step="0.5" value="0">
+        </div>
+
+        <!-- Hidden legacy elements preserved for test compatibility -->
+        <div class="sr-only">
+          <span id="dsp-mode-label">RAW STUDIO</span>
+          <button id="mode-studio" class="mode-btn active" type="button">RAW</button>
+          <button id="mode-speech" class="mode-btn" type="button">SPEECH</button>
+          <span id="buffer-label">128 samples</span>
+          <input type="range" id="slider-buffer" min="1" max="3" step="1" value="1">
+          <span id="tel-rate">48,000 Hz</span>
+          <span id="tel-packets">0</span>
+        </div>
+      </section>
+
+      <!-- 7. Compact 6-Unit FX Toggle Strip (Auto-Tune as toggle, not slider) -->
+      <section class="fx-toggles-strip">
+        <button id="tog-gate" class="fx-tog active-green" type="button">GATE</button>
+        <button id="tog-tune" class="fx-tog active-purple" type="button">TUNE</button>
+        <button id="tog-echo" class="fx-tog active-blue" type="button">ECHO</button>
+        <button id="tog-spring" class="fx-tog active-teal" type="button">SPRING</button>
+        <button id="tog-warm" class="fx-tog active-orange" type="button">TUBE</button>
+        <button id="tog-afc" class="fx-tog active-pink" type="button">AFC</button>
+      </section>
+
+      <!-- 8. Bottom Action Row: Start/Mute + Remote Record + Mixer Page -->
+      <section class="bottom-actions-row">
+        <button id="btn-stream" class="btn btn-stream" type="button">
+          <span id="stream-text">START MIC</span>
+        </button>
+        <button id="btn-mute" class="btn btn-mute" type="button">
+          <span id="mute-text">MUTE</span>
+        </button>
+        <button id="btn-record" class="btn btn-record" type="button">
+          <span class="record-dot"></span>
+          <span id="record-text">REC CLIP</span>
+        </button>
+        <button id="btn-open-mixer" class="btn btn-nav-page" type="button">MIXER ▸</button>
+      </section>
+
+      </div>
+
+    </main>
+
+    <!-- PAGE 2: SEPARATE ABLETON SESSION MIXER PAGE -->
+    <section id="view-mixer" class="spa-view inactive" tabindex="-1" aria-hidden="true">
+      <header class="header-card">
+        <span class="mixer-page-title">ABLETON SESSION MIXER</span>
+      </header>
+      <div class="bottom-control-deck">
+        <div id="mixer-tracks-container" class="mixer-tracks-list">
+          <!-- Populated dynamically by app.js -->
+        </div>
+        <button id="btn-back-fx" class="btn-nav-back" type="button">◂ BACK TO REGGAE FX</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
