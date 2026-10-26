@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments & Packaging
+.venv/
+venv/
+ENV/
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.coverage
+
+# Private & Ephemeral Runtime Artifacts (NEVER COMMIT)
+.certs/
+recordings/*.wav
+android-native/*.keystore
+android-native/*.idsig
+android-native/build/
+android-native/obj/
+
+# macOS & IDE Metadata
+.DS_Store
+.idea/
+.vscode/
+*.swp
+android-native/*.apk

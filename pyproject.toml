@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "liveairmic"
+version = "0.1.0"
+description = "Ultra-Low-Latency Wireless & USB Studio Microphone Bridge for Ableton Live & Max for Live"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [
+    { name = "LiveAirMic Contributors" }
+]
+keywords = ["ableton", "max-for-live", "audio", "low-latency", "microphone", "osc"]
+dependencies = [
+    "aiohttp>=3.9.0",
+    "cryptography>=41.0.0",
+    "numpy>=1.24.0",
+    "python-osc>=1.8.3",
+    "qrcode>=7.4.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+
+[project.scripts]
+liveairmic = "server.bridge:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["server*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "server"]
