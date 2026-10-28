@@ -1,3 +1,5 @@
+# Copyright 2026 Michael Lovci
+# SPDX-License-Identifier: Apache-2.0
 """
 OSC Controller for LiveAirMic.
 Bridges telemetry, metering, and Ableton Live transport between Python and Max for Live (M4L).

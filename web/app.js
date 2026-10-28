@@ -1,3 +1,5 @@
+// Copyright 2026 Michael Lovci
+// SPDX-License-Identifier: Apache-2.0
 /**
  * LiveAirMic Reggae Studio App Logic.
  * Handles WebAudio AudioWorklet pipeline, WebSocket binary PCM streaming,

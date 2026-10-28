@@ -1,3 +1,5 @@
+// Copyright 2026 Michael Lovci
+// SPDX-License-Identifier: Apache-2.0
 /**
  * LiveAirMic Automatic Clip Latency Compensator (Max for Live JS / LiveAPI)
  * Automatically advances start_marker & loop_start on recorded audio clips

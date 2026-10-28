@@ -1,3 +1,5 @@
+// Copyright 2026 Michael Lovci
+// SPDX-License-Identifier: Apache-2.0
 /**
  * LiveAirMic AudioWorkletProcessor.
  * Runs on the dedicated high-priority WebAudio rendering thread.

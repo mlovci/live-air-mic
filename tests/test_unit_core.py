@@ -170,3 +170,54 @@ def test_audio_engine_feedback_detection_telemetry():
     assert afc["active_notches"] >= 1
     assert any(abs(f - 2250.0) < 200.0 for f in afc["notch_freqs_hz"])
 
+
+def test_open_source_license_and_notice_compliance():
+    """Verify Apache-2.0 LICENSE, NOTICE, pyproject.toml, and SPDX headers protect author rights."""
+    repo_root = Path(__file__).resolve().parent.parent
+
+    license_file = repo_root / "LICENSE"
+    notice_file = repo_root / "NOTICE"
+    pyproject_file = repo_root / "pyproject.toml"
+    readme_file = repo_root / "README.md"
+
+    assert license_file.exists(), "Root LICENSE file must exist"
+    assert notice_file.exists(), "Root NOTICE file must exist"
+
+    license_text = license_file.read_text()
+    assert "Apache License" in license_text
+    assert "Version 2.0, January 2004" in license_text
+    assert "3. Grant of Patent License." in license_text
+    assert "6. Trademarks." in license_text
+    assert "7. Disclaimer of Warranty." in license_text
+    assert "8. Limitation of Liability." in license_text
+    assert "Copyright 2026 Michael Lovci" in license_text
+
+    notice_text = notice_file.read_text()
+    assert "Copyright 2026 Michael Lovci" in notice_text
+    assert "TRADEMARK & BRAND RESERVATION" in notice_text
+    assert "REAL-TIME AUDIO, ACOUSTIC FEEDBACK & HARDWARE SAFETY NOTICE" in notice_text
+    assert "THIRD-PARTY OPEN-SOURCE SOFTWARE NOTICES" in notice_text
+
+    pyproject_text = pyproject_file.read_text()
+    assert 'license = { file = "LICENSE" }' in pyproject_text
+    assert "License :: OSI Approved :: Apache Software License" in pyproject_text
+
+    readme_text = readme_file.read_text()
+    assert "Apache License, Version 2.0" in readme_text
+    assert "SPDX-License-Identifier: Apache-2.0" in readme_text
+
+    # Verify SPDX headers on core source files
+    for rel_path in [
+        "server/bridge.py",
+        "server/audio_engine.py",
+        "server/osc_controller.py",
+        "web/app.js",
+        "web/audio-worklet.js",
+        "m4l/server_ctl.js",
+        "m4l/clip_align.js",
+        "android-native/jni/aaudio_mic.c",
+    ]:
+        src_text = (repo_root / rel_path).read_text()
+        assert "SPDX-License-Identifier: Apache-2.0" in src_text, f"Missing SPDX header in {rel_path}"
+
+

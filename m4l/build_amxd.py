@@ -1,3 +1,5 @@
+# Copyright 2026 Michael Lovci
+# SPDX-License-Identifier: Apache-2.0
 """
 Generator for LiveAirMic Max for Live device (.amxd and .maxpat).
 Creates a fully functional M4L Audio Effect device with OSC communication,

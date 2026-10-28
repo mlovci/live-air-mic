@@ -1,3 +1,5 @@
+# Copyright 2026 Michael Lovci
+# SPDX-License-Identifier: Apache-2.0
 """
 Protocol & Pipeline Interfaces for LiveAirMic.
 Defines runtime-checkable structural contracts (PEP 544 Protocols) for

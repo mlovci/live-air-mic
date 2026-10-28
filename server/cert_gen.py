@@ -1,3 +1,5 @@
+# Copyright 2026 Michael Lovci
+# SPDX-License-Identifier: Apache-2.0
 """
 Self-signed SSL certificate generator with Subject Alternative Names (SAN).
 Generates certificates valid for localhost, 127.0.0.1, and all active LAN IP addresses

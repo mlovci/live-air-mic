@@ -1,3 +1,5 @@
+# Copyright 2026 Michael Lovci
+# SPDX-License-Identifier: Apache-2.0
 """
 Direct Max for Live (M4L) DSP & Ring Buffer Audio Engine for LiveAirMic.
 Provides pure-Python/NumPy PCM ingestion, sample-rate conversion, circular ring buffering,

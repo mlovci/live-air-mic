@@ -1,3 +1,5 @@
+// Copyright 2026 Michael Lovci
+// SPDX-License-Identifier: Apache-2.0
 /**
  * LiveAirMic Max for Live Embedded Server & ADB Controller (Node for Max)
  * Automatically maintains the local Python audio bridge and USB ADB port-forwarding

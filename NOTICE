@@ -1,0 +1,69 @@
+LiveAirMic — Wireless & USB Studio Microphone for Ableton Live & Max for Live
+Copyright 2026 Michael Lovci and LiveAirMic Contributors
+
+This product includes software developed by Michael Lovci
+(https://github.com/mlovci/live-air-mic).
+
+==============================================================================
+1. ATTRIBUTION & MODIFICATION NOTICE (Apache License 2.0, Section 4)
+==============================================================================
+Under Section 4 of the Apache License, Version 2.0, any redistribution of
+LiveAirMic in Source or Object form (including Python packages, Android APK
+binaries, Max for Live `.amxd` / `.maxpat` devices, or Web/PWA assets) must:
+  - Include a copy of the `LICENSE` and this `NOTICE` file;
+  - Retain all copyright, patent, trademark, and attribution notices; and
+  - Carry prominent notices on any modified files stating that the files
+    were changed.
+
+==============================================================================
+2. TRADEMARK & BRAND RESERVATION (Apache License 2.0, Section 6)
+==============================================================================
+The "LiveAirMic" name, logo, and associated branding are trade names of
+Michael Lovci. The Apache License 2.0 does not grant permission to use the
+"LiveAirMic" name or author branding to endorse or promote derivative works or
+commercial redistributions without prior written permission, except as
+required for reasonable and customary use in describing the origin of the Work.
+
+==============================================================================
+3. REAL-TIME AUDIO, ACOUSTIC FEEDBACK & HARDWARE SAFETY NOTICE
+==============================================================================
+LiveAirMic is a real-time microphone capture and low-latency audio streaming
+tool capable of generating high-gain audio signals. Even when built-in
+Adaptive Feedback Cancellation (AFC) and brickwall limiters are active:
+  - Always start with studio monitor, PA system, and headphone levels turned
+    down before arming tracks or enabling live monitoring.
+  - As set forth in Sections 7 and 8 of the Apache License, Version 2.0, the
+    software is provided strictly "AS IS", WITHOUT WARRANTY OF ANY KIND, and
+    the author and contributors shall not be liable for any hearing damage,
+    acoustic feedback events, loudspeaker/transducer damage, hardware
+    malfunction, data loss, or live performance interruption arising from the
+    use of this software.
+
+==============================================================================
+4. THIRD-PARTY OPEN-SOURCE SOFTWARE NOTICES
+==============================================================================
+LiveAirMic interoperates with and/or declares dependencies on the following
+open-source libraries, each governed by its respective open-source license:
+
+  - aiohttp (https://github.com/aio-libs/aiohttp)
+    License: Apache License 2.0 (SPDX: Apache-2.0)
+
+  - cryptography (https://github.com/pyca/cryptography)
+    License: Apache License 2.0 OR BSD-3-Clause (SPDX: Apache-2.0 OR BSD-3-Clause)
+
+  - NumPy (https://numpy.org)
+    License: BSD 3-Clause License (SPDX: BSD-3-Clause)
+
+  - python-osc (https://github.com/attwad/python-osc)
+    License: The Unlicense (SPDX: Unlicense)
+
+  - python-qrcode (https://github.com/lincolnloop/python-qrcode)
+    License: BSD 3-Clause License (SPDX: BSD-3-Clause)
+
+  - pytest & pytest-asyncio (Development / Test Suite Only)
+    License: MIT License / Apache License 2.0 (SPDX: MIT / Apache-2.0)
+
+Ableton®, Ableton Live®, Max®, and Max for Live® are trademarks of Ableton AG
+and/or Cycling '74. Android™ is a trademark of Google LLC. LiveAirMic is an
+independent open-source project and is not affiliated with or endorsed by
+Ableton AG, Cycling '74, or Google LLC.

@@ -61,6 +61,8 @@
 
 ```
 liveairmic/
+├── LICENSE                        # Apache License 2.0 (warranty, liability & patent protection)
+├── NOTICE                         # Mandatory attribution, trademark & acoustic safety notice
 ├── README.md                      # Project documentation and quickstart
 ├── AGENTS.md                      # Enterprise engineering & agent directive
 ├── pyproject.toml                 # Standard Python package & pytest configuration
@@ -118,3 +120,15 @@ python3 scripts/test_stream.py
 - [System Architecture & Protocol Specification](docs/ARCHITECTURE.md)
 - [Latency Optimization & Tuning Guide](docs/LATENCY_TUNING.md)
 - [Engineering & Agent Directive](AGENTS.md)
+
+---
+
+## License & Legal Notice
+
+Copyright © 2026 Michael Lovci and LiveAirMic Contributors.
+
+Licensed under the **Apache License, Version 2.0** (`SPDX-License-Identifier: Apache-2.0`). See [`LICENSE`](LICENSE) for the full license text and [`NOTICE`](NOTICE) for mandatory attribution requirements, trademark reservations, third-party open-source disclosures, and real-time audio/hardware safety disclaimers.
+
+- **Warranty & Liability Protection**: Provided strictly `"AS IS"` without warranty of any kind (Sections 7 & 8). Always keep studio monitors and headphones turned down when initializing live microphone routing.
+- **Defensive Patent Termination**: Includes explicit patent grant and defensive termination clauses protecting the author and contributors against patent litigation (Section 3).
+- **Attribution & Trademark Protection**: Redistributors must preserve [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE), mark modified files (Section 4), and may not use the `LiveAirMic` name or author branding to endorse derivative works without permission (Section 6).

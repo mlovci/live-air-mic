@@ -1,3 +1,5 @@
+// Copyright 2026 Michael Lovci
+// SPDX-License-Identifier: Apache-2.0
 /**
  * LiveAirMic — Vintage Analog Backlit VU Meter (Max for Live jsui / mgraphics)
  * Renders an authentic warm-backlit analog VU dial with -20..0..+3 dB scale,

@@ -7,10 +7,19 @@ name = "liveairmic"
 version = "0.1.0"
 description = "Ultra-Low-Latency Wireless & USB Studio Microphone Bridge for Ableton Live & Max for Live"
 readme = "README.md"
-license = { text = "MIT" }
+license = { file = "LICENSE" }
 requires-python = ">=3.10"
 authors = [
-    { name = "LiveAirMic Contributors" }
+    { name = "Michael Lovci" }
+]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio :: Capture/Recording",
 ]
 keywords = ["ableton", "max-for-live", "audio", "low-latency", "microphone", "osc"]
 dependencies = [
