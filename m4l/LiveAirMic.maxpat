@@ -18,7 +18,7 @@
     "openrect": [
       0.0,
       0.0,
-      346.0,
+      214.0,
       169.0
     ],
     "bglocked": 0,
@@ -56,7 +56,7 @@
     "boxanimatetime": 200,
     "enablehscroll": 1,
     "enablevscroll": 1,
-    "devicewidth": 346.0,
+    "devicewidth": 214.0,
     "description": "LiveAirMic Wireless Studio Microphone Receiver for Ableton Live",
     "digest": "High-Speed Mobile Mic Bridge",
     "tags": "Audio Effect, Utility, Network, Wireless",
@@ -297,13 +297,13 @@
           "presentation": 1,
           "presentation_rect": [
             12.0,
-            14.0,
-            115.0,
-            20.0
+            10.0,
+            156.0,
+            18.0
           ],
           "text": "LIVE AIR MIC",
           "fontname": "Ableton Sans Bold",
-          "fontsize": 12.0,
+          "fontsize": 11.5,
           "textcolor": [
             1.0,
             1.0,
@@ -324,7 +324,7 @@
             80.0,
             18.0
           ],
-          "presentation": 1,
+          "presentation": 0,
           "presentation_rect": [
             128.0,
             16.0,
@@ -357,9 +357,9 @@
           "presentation": 1,
           "presentation_rect": [
             12.0,
-            34.0,
-            128.0,
-            20.0
+            28.0,
+            156.0,
+            18.0
           ],
           "text": "\u25cf ONLINE (2.7ms)",
           "fontname": "Ableton Sans Bold",
@@ -384,7 +384,7 @@
             200.0,
             18.0
           ],
-          "presentation": 1,
+          "presentation": 0,
           "presentation_rect": [
             12.0,
             52.0,
@@ -455,6 +455,7 @@
           "id": "obj-ui-analog-vu",
           "maxclass": "jsui",
           "filename": "vu_meter.js",
+          "border": 0,
           "numinlets": 1,
           "numoutlets": 1,
           "outlettype": [
@@ -463,15 +464,15 @@
           "patching_rect": [
             60.0,
             145.0,
-            198.0,
-            52.0
+            156.0,
+            70.0
           ],
           "presentation": 1,
           "presentation_rect": [
             12.0,
-            68.0,
-            198.0,
-            50.0
+            48.0,
+            156.0,
+            70.0
           ]
         }
       },
@@ -493,10 +494,10 @@
           ],
           "presentation": 1,
           "presentation_rect": [
-            220.0,
-            14.0,
-            26.0,
-            136.0
+            178.0,
+            12.0,
+            24.0,
+            142.0
           ]
         }
       },
@@ -517,7 +518,7 @@
             75.0,
             25.0
           ],
-          "presentation": 1,
+          "presentation": 0,
           "presentation_rect": [
             256.0,
             14.0,
@@ -585,7 +586,7 @@
             70.0,
             25.0
           ],
-          "presentation": 1,
+          "presentation": 0,
           "presentation_rect": [
             256.0,
             42.0,
@@ -651,10 +652,10 @@
           ],
           "presentation": 1,
           "presentation_rect": [
-            256.0,
-            70.0,
-            78.0,
-            26.0
+            12.0,
+            124.0,
+            156.0,
+            30.0
           ],
           "text": "CONNECT",
           "bgcolor": [
@@ -746,7 +747,7 @@
             90.0,
             20.0
           ],
-          "presentation": 1,
+          "presentation": 0,
           "presentation_rect": [
             256.0,
             100.0,
@@ -794,7 +795,7 @@
             50.0,
             15.0
           ],
-          "presentation": 1,
+          "presentation": 0,
           "presentation_rect": [
             256.0,
             130.0,
@@ -834,7 +835,7 @@
             90.0,
             20.0
           ],
-          "presentation": 1,
+          "presentation": 0,
           "presentation_rect": [
             12.0,
             122.0,
@@ -882,7 +883,7 @@
             90.0,
             20.0
           ],
-          "presentation": 1,
+          "presentation": 0,
           "presentation_rect": [
             114.0,
             122.0,

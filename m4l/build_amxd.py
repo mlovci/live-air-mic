@@ -23,7 +23,7 @@ def generate_patcher():
             },
             "classnamespace": "box",
             "rect": [100.0, 100.0, 850.0, 680.0],
-            "openrect": [0.0, 0.0, 346.0, 169.0],
+            "openrect": [0.0, 0.0, 214.0, 169.0],
             "bglocked": 0,
             "openinpresentation": 1,
             "default_fontsize": 11.0,
@@ -46,7 +46,7 @@ def generate_patcher():
             "boxanimatetime": 200,
             "enablehscroll": 1,
             "enablevscroll": 1,
-            "devicewidth": 346.0,
+            "devicewidth": 214.0,
             "description": "LiveAirMic Wireless Studio Microphone Receiver for Ableton Live",
             "digest": "High-Speed Mobile Mic Bridge",
             "tags": "Audio Effect, Utility, Network, Wireless",
@@ -185,7 +185,7 @@ def generate_patcher():
                     }
                 },
 
-                # --- PRESENTATION UI ELEMENTS (Studio Console: Telemetry, Meter, Server & USB Controls) ---
+                # --- PRESENTATION UI ELEMENTS (Studio Console: Title, Status, Vintage Analog VU, Connect, Peak Meter) ---
                 # Title
                 {
                     "box": {
@@ -195,14 +195,14 @@ def generate_patcher():
                         "numoutlets": 0,
                         "patching_rect": [310.0, 40.0, 120.0, 20.0],
                         "presentation": 1,
-                        "presentation_rect": [12.0, 14.0, 115.0, 20.0],
+                        "presentation_rect": [12.0, 10.0, 156.0, 18.0],
                         "text": "LIVE AIR MIC",
                         "fontname": "Ableton Sans Bold",
-                        "fontsize": 12.0,
+                        "fontsize": 11.5,
                         "textcolor": [1.0, 1.0, 1.0, 1.0]
                     }
                 },
-                # Version / Badge
+                # Version / Badge (hidden from presentation)
                 {
                     "box": {
                         "id": "obj-version-badge",
@@ -210,7 +210,7 @@ def generate_patcher():
                         "numinlets": 1,
                         "numoutlets": 0,
                         "patching_rect": [430.0, 40.0, 80.0, 18.0],
-                        "presentation": 1,
+                        "presentation": 0,
                         "presentation_rect": [128.0, 16.0, 82.0, 18.0],
                         "text": "48kHz AAudio",
                         "fontname": "Ableton Sans Medium",
@@ -227,14 +227,14 @@ def generate_patcher():
                         "numoutlets": 0,
                         "patching_rect": [310.0, 70.0, 220.0, 20.0],
                         "presentation": 1,
-                        "presentation_rect": [12.0, 34.0, 128.0, 20.0],
+                        "presentation_rect": [12.0, 28.0, 156.0, 18.0],
                         "text": "● ONLINE (2.7ms)",
                         "fontname": "Ableton Sans Bold",
                         "fontsize": 10.5,
                         "textcolor": [0.06, 0.85, 0.50, 1.0]
                     }
                 },
-                # Latency & Buffer Telemetry Readout
+                # Latency & Buffer Telemetry Readout (hidden from presentation)
                 {
                     "box": {
                         "id": "obj-ui-latency",
@@ -242,7 +242,7 @@ def generate_patcher():
                         "numinlets": 1,
                         "numoutlets": 0,
                         "patching_rect": [310.0, 95.0, 200.0, 18.0],
-                        "presentation": 1,
+                        "presentation": 0,
                         "presentation_rect": [12.0, 52.0, 198.0, 16.0],
                         "text": "Latency: 2.7 ms | AFC: CLEAR",
                         "fontname": "Ableton Sans Medium",
@@ -250,7 +250,7 @@ def generate_patcher():
                         "textcolor": [0.75, 0.82, 0.90, 1.0]
                     }
                 },
-                # Device & Channel Route Info (hidden behind or below VU)
+                # Device & Channel Route Info (hidden from presentation)
                 {
                     "box": {
                         "id": "obj-ui-route",
@@ -283,12 +283,13 @@ def generate_patcher():
                         "id": "obj-ui-analog-vu",
                         "maxclass": "jsui",
                         "filename": "vu_meter.js",
+                        "border": 0,
                         "numinlets": 1,
                         "numoutlets": 1,
                         "outlettype": [""],
-                        "patching_rect": [60.0, 145.0, 198.0, 52.0],
+                        "patching_rect": [60.0, 145.0, 156.0, 70.0],
                         "presentation": 1,
-                        "presentation_rect": [12.0, 68.0, 198.0, 50.0]
+                        "presentation_rect": [12.0, 48.0, 156.0, 70.0]
                     }
                 },
                 # Peak / RMS Meter Display (live.meter~)
@@ -301,10 +302,10 @@ def generate_patcher():
                         "outlettype": ["float", "int"],
                         "patching_rect": [30.0, 120.0, 20.0, 80.0],
                         "presentation": 1,
-                        "presentation_rect": [220.0, 14.0, 26.0, 136.0]
+                        "presentation_rect": [178.0, 12.0, 24.0, 142.0]
                     }
                 },
-                # Embedded Server Start/Stop Toggle Button (autostart=1)
+                # Embedded Server Start/Stop Toggle Button (hidden from presentation, autostart=1)
                 {
                     "box": {
                         "id": "obj-ui-srv-btn",
@@ -314,7 +315,7 @@ def generate_patcher():
                         "outlettype": ["", ""],
                         "parameter_enable": 1,
                         "patching_rect": [390.0, 140.0, 75.0, 25.0],
-                        "presentation": 1,
+                        "presentation": 0,
                         "presentation_rect": [256.0, 14.0, 78.0, 24.0],
                         "saved_attribute_attributes": {
                             "valueof": {
@@ -335,7 +336,7 @@ def generate_patcher():
                         "textoncolor": [1.0, 1.0, 1.0, 1.0]
                     }
                 },
-                # Direct Clip Record Button & Phone Rec Status
+                # Direct Clip Record Button & Phone Rec Status (hidden from presentation)
                 {
                     "box": {
                         "id": "obj-ui-rec-led",
@@ -345,7 +346,7 @@ def generate_patcher():
                         "outlettype": ["", ""],
                         "parameter_enable": 1,
                         "patching_rect": [310.0, 140.0, 70.0, 25.0],
-                        "presentation": 1,
+                        "presentation": 0,
                         "presentation_rect": [256.0, 42.0, 78.0, 24.0],
                         "saved_attribute_attributes": {
                             "valueof": {
@@ -374,7 +375,7 @@ def generate_patcher():
                         "outlettype": ["", "", "int"],
                         "patching_rect": [510.0, 175.0, 90.0, 20.0],
                         "presentation": 1,
-                        "presentation_rect": [256.0, 70.0, 78.0, 26.0],
+                        "presentation_rect": [12.0, 124.0, 156.0, 30.0],
                         "text": "CONNECT",
                         "bgcolor": [0.02, 0.52, 0.78, 1.0],
                         "bgoncolor": [0.06, 0.65, 0.91, 1.0],
@@ -408,7 +409,7 @@ def generate_patcher():
                         "text": "maxurl"
                     }
                 },
-                # Align Recorded Clips Button
+                # Align Recorded Clips Button (hidden from presentation)
                 {
                     "box": {
                         "id": "obj-ui-btn-align",
@@ -417,7 +418,7 @@ def generate_patcher():
                         "numoutlets": 3,
                         "outlettype": ["", "", "int"],
                         "patching_rect": [610.0, 175.0, 90.0, 20.0],
-                        "presentation": 1,
+                        "presentation": 0,
                         "presentation_rect": [256.0, 100.0, 78.0, 24.0],
                         "text": "Align Clips",
                         "bgcolor": [0.16, 0.34, 0.28, 1.0],
@@ -428,7 +429,7 @@ def generate_patcher():
                         "rounded": 6.0
                     }
                 },
-                # Latency Compensation Offset (ms)
+                # Latency Compensation Offset (ms) (hidden from presentation)
                 {
                     "box": {
                         "id": "obj-ui-latcomp",
@@ -438,7 +439,7 @@ def generate_patcher():
                         "outlettype": ["", "float"],
                         "parameter_enable": 1,
                         "patching_rect": [610.0, 140.0, 50.0, 15.0],
-                        "presentation": 1,
+                        "presentation": 0,
                         "presentation_rect": [256.0, 130.0, 78.0, 18.0],
                         "saved_attribute_attributes": {
                             "valueof": {
@@ -454,7 +455,7 @@ def generate_patcher():
                         }
                     }
                 },
-                # Open Web QR Code Button
+                # Open Web QR Code Button (hidden from presentation)
                 {
                     "box": {
                         "id": "obj-ui-btn-qr",
@@ -463,7 +464,7 @@ def generate_patcher():
                         "numoutlets": 3,
                         "outlettype": ["", "", "int"],
                         "patching_rect": [310.0, 175.0, 90.0, 20.0],
-                        "presentation": 1,
+                        "presentation": 0,
                         "presentation_rect": [12.0, 122.0, 96.0, 28.0],
                         "text": "Open Web App",
                         "bgcolor": [0.16, 0.20, 0.28, 1.0],
@@ -474,7 +475,7 @@ def generate_patcher():
                         "rounded": 6.0
                     }
                 },
-                # Copy IP URL Button
+                # Copy IP URL Button (hidden from presentation)
                 {
                     "box": {
                         "id": "obj-ui-btn-copy",
@@ -483,7 +484,7 @@ def generate_patcher():
                         "numoutlets": 3,
                         "outlettype": ["", "", "int"],
                         "patching_rect": [410.0, 175.0, 90.0, 20.0],
-                        "presentation": 1,
+                        "presentation": 0,
                         "presentation_rect": [114.0, 122.0, 96.0, 28.0],
                         "text": "Server Status",
                         "bgcolor": [0.16, 0.20, 0.28, 1.0],

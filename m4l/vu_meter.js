@@ -50,22 +50,27 @@ function paint() {
     var pad = 2.0;
     var r = 6.0;
 
+    // 0. Match Ableton M4L device surface background outside rounded bezel corners
+    mgraphics.set_source_rgba(0.22, 0.24, 0.27, 1.0);
+    mgraphics.rectangle(0.0, 0.0, w, h);
+    mgraphics.fill();
+
     // 1. Warm incandescent amber faceplate
     mgraphics.set_source_rgba(0.96, 0.88, 0.68, 1.0);
-    mgraphics.rectangle_rounded(pad, pad, w - 2 * pad, h - 2 * pad, r, r);
+    mgraphics.rectangle_rounded(pad, pad, w - 2.0 * pad, h - 2.0 * pad, r, r);
     mgraphics.fill();
 
-    // Subtle warm top bulb highlight
+    // Subtle warm top bulb highlight (strictly inside faceplate bounds)
     mgraphics.set_source_rgba(1.0, 0.97, 0.86, 0.45);
-    mgraphics.ellipse(w * 0.12, -h * 0.25, w * 0.76, h * 0.65);
+    mgraphics.ellipse(w * 0.15, pad + 1.0, w * 0.70, h * 0.38);
     mgraphics.fill();
 
-    // 2. Curved VU Scale Arc (-20 to +3 VU)
+    // 2. Curved VU Scale Arc (-20 to +3 VU) centered at bottom pivot cap
     var cx = w * 0.5;
-    var pivotY = h * 2.15;
-    var radius = h * 1.78;
-    var startDeg = -36.0;
-    var spanDeg = 72.0;
+    var pivotY = h + 2.0;
+    var radius = h * 0.74;
+    var startDeg = -48.0;
+    var spanDeg = 96.0;
     var zeroNorm = 0.75;
     var degToRad = Math.PI / 180.0;
 
@@ -80,7 +85,7 @@ function paint() {
     mgraphics.stroke();
 
     // Red overload band (0 to +3 VU)
-    mgraphics.set_line_width(3.4);
+    mgraphics.set_line_width(3.2);
     mgraphics.set_source_rgba(0.78, 0.12, 0.12, 1.0);
     mgraphics.arc(cx, pivotY, radius, aZero, aEnd);
     mgraphics.stroke();
@@ -97,7 +102,7 @@ function paint() {
         var isMajor = (i === 0 || i === 1 || i === 4 || i === 6 || i === 9);
 
         var rInner = radius - 1.5;
-        var rOuter = radius + (isMajor ? 5.5 : 3.5);
+        var rOuter = radius + (isMajor ? 5.2 : 3.2);
         var x1 = cx + rInner * Math.sin(rad);
         var y1 = pivotY - rInner * Math.cos(rad);
         var x2 = cx + rOuter * Math.sin(rad);
@@ -114,8 +119,8 @@ function paint() {
         mgraphics.stroke();
 
         if (isMajor || i === 7) {
-            var rText = radius + 12.0;
-            var tx = cx + rText * Math.sin(rad) - 6.0;
+            var rText = radius + 11.2;
+            var tx = cx + rText * Math.sin(rad) - 5.5;
             var ty = pivotY - rText * Math.cos(rad) + 2.5;
             mgraphics.move_to(tx, ty);
             mgraphics.show_text(tickLabels[i]);
@@ -123,51 +128,54 @@ function paint() {
     }
 
     // 4. Classic "VU" Emblem
-    mgraphics.set_font_size(11.0);
+    mgraphics.set_font_size(10.5);
     mgraphics.set_source_rgba(0.24, 0.15, 0.09, 0.90);
-    mgraphics.move_to(cx - 9.0, h * 0.74);
+    mgraphics.move_to(cx - 8.5, h * 0.68);
     mgraphics.show_text("VU");
 
     // 5. Ruby PEAK Jewel Indicator Lamp
-    var lampX = w - 14.0;
-    var lampY = 12.0;
+    var lampX = w - 13.0;
+    var lampY = 11.0;
     if (peakLin > 0.5) {
         mgraphics.set_source_rgba(1.0, 0.16, 0.16, 1.0);
     } else {
         mgraphics.set_source_rgba(0.32, 0.10, 0.10, 1.0);
     }
-    mgraphics.arc(lampX, lampY, 3.8, 0, Math.PI * 2.0);
+    mgraphics.arc(lampX, lampY, 3.6, 0, Math.PI * 2.0);
     mgraphics.fill();
 
-    // 6. Sweeping Analog Needle + Shadow
+    // 6. Sweeping Analog Needle + Shadow (emanating from inside the center Bakelite pivot cap)
     var needleDeg = startDeg + smoothNorm * spanDeg;
     var needleRad = needleDeg * degToRad;
-    var needleLen = radius + 6.0;
+    var rStart = 9.0;
+    var needleLen = radius + 4.2;
+    var sx = cx + rStart * Math.sin(needleRad);
+    var sy = pivotY - rStart * Math.cos(needleRad);
     var tipX = cx + needleLen * Math.sin(needleRad);
     var tipY = pivotY - needleLen * Math.cos(needleRad);
 
     // Shadow
     mgraphics.set_line_width(2.0);
     mgraphics.set_source_rgba(0.14, 0.08, 0.02, 0.24);
-    mgraphics.move_to(cx + 2.0, pivotY + 2.0);
-    mgraphics.line_to(tipX + 2.0, tipY + 2.0);
+    mgraphics.move_to(sx + 1.5, sy + 1.0);
+    mgraphics.line_to(tipX + 1.5, tipY + 1.5);
     mgraphics.stroke();
 
     // Needle shaft
     mgraphics.set_line_width(1.7);
     mgraphics.set_source_rgba(0.10, 0.07, 0.04, 1.0);
-    mgraphics.move_to(cx, pivotY);
+    mgraphics.move_to(sx, sy);
     mgraphics.line_to(tipX, tipY);
     mgraphics.stroke();
 
-    // 7. Bottom Bakelite Pivot Cap
+    // 7. Bottom Bakelite Pivot Cap (sits flush on inner bottom bezel)
     mgraphics.set_source_rgba(0.12, 0.09, 0.06, 1.0);
-    mgraphics.arc(cx, h + 4.0, 13.0, Math.PI, Math.PI * 2.0);
+    mgraphics.arc(cx, h - pad, 12.5, Math.PI, Math.PI * 2.0);
     mgraphics.fill();
 
     // 8. Outer Vintage Brass/Bakelite Bezel
     mgraphics.set_line_width(2.0);
     mgraphics.set_source_rgba(0.42, 0.30, 0.17, 1.0);
-    mgraphics.rectangle_rounded(pad, pad, w - 2 * pad, h - 2 * pad, r, r);
+    mgraphics.rectangle_rounded(pad, pad, w - 2.0 * pad, h - 2.0 * pad, r, r);
     mgraphics.stroke();
 }

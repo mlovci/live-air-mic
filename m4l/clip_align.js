@@ -38,8 +38,10 @@ function set_status_led(isOnline) {
 
 function simplify_m4l_ui() {
     try {
-        try { this.patcher.setattr("devicewidth", 150.0); } catch (ep1) {}
-        try { this.patcher.message("devicewidth", 150.0); } catch (ep2) {}
+        try { this.patcher.setattr("devicewidth", 214.0); } catch (ep1) {}
+        try { this.patcher.message("devicewidth", 214.0); } catch (ep2) {}
+        try { this.patcher.setattr("openrect", 0.0, 0.0, 214.0, 169.0); } catch (ep3) {}
+        try { this.patcher.message("openrect", 0.0, 0.0, 214.0, 169.0); } catch (ep4) {}
         var b = this.patcher.firstobject;
         while (b) {
             var mc = String(b.maxclass || "");
@@ -52,11 +54,11 @@ function simplify_m4l_ui() {
                 try { b.message("presentation", 0); } catch (e2) {}
             } else if (mc === "textbutton") {
                 if (Math.abs(x - 510) < 20) {
-                    // Connect Button (obj-ui-btn-usb)
+                    // Connect Button (obj-ui-btn-usb) below VU meter
                     try { b.setattr("text", "CONNECT"); } catch (e3) {}
                     try { b.message("text", "CONNECT"); } catch (e4) {}
                     try { b.setattr("presentation", 1); } catch (e5) {}
-                    try { b.message("presentation_rect", 12.0, 92.0, 88.0, 36.0); } catch (e6) {}
+                    try { b.message("presentation_rect", 12.0, 124.0, 156.0, 30.0); } catch (e6) {}
                 } else {
                     try { b.setattr("presentation", 0); } catch (e7) {}
                     try { b.message("presentation", 0); } catch (e8) {}
@@ -65,24 +67,32 @@ function simplify_m4l_ui() {
                 if (Math.abs(y - 40) < 8 && Math.abs(x - 310) < 20) {
                     // Title (obj-title)
                     try { b.setattr("presentation", 1); } catch (e9) {}
-                    try { b.message("presentation_rect", 12.0, 16.0, 95.0, 20.0); } catch (e10) {}
+                    try { b.message("presentation_rect", 12.0, 10.0, 156.0, 18.0); } catch (e10) {}
                 } else if (Math.abs(y - 70) < 8) {
                     // Status Light (obj-ui-status)
                     statusCommentObj = b;
                     try { b.setattr("presentation", 1); } catch (e11) {}
-                    try { b.message("presentation_rect", 12.0, 50.0, 92.0, 24.0); } catch (e12) {}
-                    try { b.message("fontsize", 11.5); } catch (e13) {}
+                    try { b.message("presentation_rect", 12.0, 28.0, 156.0, 18.0); } catch (e12) {}
+                    try { b.message("fontsize", 10.5); } catch (e13) {}
                 } else {
                     // Hide version badge, latency text, and meter text from presentation
                     try { b.setattr("presentation", 0); } catch (e14) {}
                     try { b.message("presentation", 0); } catch (e15) {}
                 }
+            } else if (mc === "jsui") {
+                // Vintage Analog Backlit VU Meter (obj-ui-analog-vu)
+                try { b.setattr("border", 0); } catch (e16a) {}
+                try { b.message("border", 0); } catch (e16b) {}
+                try { b.setattr("presentation", 1); } catch (e16c) {}
+                try { b.message("presentation_rect", 12.0, 48.0, 156.0, 70.0); } catch (e16d) {}
+                try { b.message("compile"); } catch (e16e) {}
+                try { b.message("msg_float", 0.0); } catch (e16f) {}
             } else if (mc === "live.meter~") {
                 try { b.setattr("presentation", 1); } catch (e16) {}
-                try { b.message("presentation_rect", 112.0, 16.0, 26.0, 136.0); } catch (e17) {}
+                try { b.message("presentation_rect", 178.0, 12.0, 24.0, 142.0); } catch (e17) {}
             } else if (mc === "panel") {
                 try { b.setattr("presentation", 1); } catch (e18) {}
-                try { b.message("presentation_rect", 0.0, 0.0, 150.0, 169.0); } catch (e19) {}
+                try { b.message("presentation_rect", 0.0, 0.0, 214.0, 169.0); } catch (e19) {}
             }
             b = b.nextobject;
         }
@@ -125,9 +135,9 @@ function lock_jitter_release_fifo() {
         if (routeObj && jsObj) {
             try { this.patcher.connect(routeObj, 11, jsObj, 0); } catch (eConn) {}
         }
-        var f = new File("/tmp/airmic_patcher_diag.txt", "write");
+        var f = new File("/tmp/airmic_patcher_diag.txt", "write", "TEXT");
         if (f.isopen) {
-            f.writeline(logLines.join(" | "));
+            f.writeline("updated_ui=214x169 | " + logLines.join(" | "));
             f.close();
         }
     } catch (e) {}

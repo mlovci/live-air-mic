@@ -115,17 +115,42 @@ def test_ssl_certificate_generation_and_san_validation(tmp_path: Path):
 
 
 def test_m4l_amxd_binary_and_portable_paths():
-    """Verify M4L patcher has no hardcoded user paths and packs into valid .amxd binary header."""
+    """Verify M4L patcher has no hardcoded user paths, valid non-overlapping presentation UI, and valid .amxd header."""
     patcher = generate_patcher()
     raw_json = str(patcher)
     assert "/Users/" not in raw_json
     assert "node.script server_ctl.js @autostart 1" in raw_json
     assert "js clip_align.js" in raw_json
 
+    p = patcher["patcher"]
+    dev_w = p["devicewidth"]
+    dev_h = p["openrect"][3]
+    pres_boxes = []
+    for entry in p["boxes"]:
+        b = entry["box"]
+        if b.get("presentation") == 1:
+            x, y, w, h = b["presentation_rect"]
+            assert x >= 0 and y >= 0, f"{b['id']} out of top/left bounds"
+            assert (x + w) <= dev_w, f"{b['id']} exceeds devicewidth ({x + w} > {dev_w})"
+            assert (y + h) <= dev_h, f"{b['id']} exceeds deviceheight ({y + h} > {dev_h})"
+            if b["maxclass"] == "jsui":
+                assert b.get("border") == 0, "jsui VU meter must have border=0"
+            pres_boxes.append((b["id"], x, y, w, h))
+
+    # Verify no two presentation UI boxes overlap
+    for i, (id1, x1, y1, w1, h1) in enumerate(pres_boxes):
+        for id2, x2, y2, w2, h2 in pres_boxes[i + 1 :]:
+            overlap_x = max(0.0, min(x1 + w1, x2 + w2) - max(x1, x2))
+            overlap_y = max(0.0, min(y1 + h1, y2 + h2) - max(y1, y2))
+            assert (overlap_x * overlap_y) == 0.0, f"M4L UI overlap between {id1} and {id2}"
+
     amxd_bytes = build_amxd_binary(patcher)
     assert amxd_bytes[:4] == b"ampf"
     assert amxd_bytes[8:12] == b"aaaa"
     assert b"ptch" in amxd_bytes[:32]
+
+    vu_src = (Path(__file__).resolve().parent.parent / "m4l" / "vu_meter.js").read_text()
+    assert "mgraphics.clip" not in vu_src, "Max mgraphics does not support clip(); causes unbalanced save() stack"
 
 
 def test_android_native_vocal_isolation_jni_contract():
